@@ -1,13 +1,11 @@
 ---
 - name: downloading installer...
-  become: yes
   get_url: >
     url={{node_n_url}}
     dest=/tmp/n-install.sh
     mode=0755
 
 - name: install...
-  become: yes
   environment:
     N_PREFIX : '{{node_n_prefix}}'
     PATH: '/bin:/usr/bin:/usr/local/bin'
@@ -16,14 +14,12 @@
     creates: '{{node_n_prefix}}/bin/n'
 
 - name: install latest npm
-  become: yes
   environment:
     N_PREFIX: '{{node_n_prefix}}'
     PATH: '/bin:/usr/bin:/usr/local/bin:{{node_n_prefix}}/bin'
   command: '{{node_n_prefix}}/bin/npm update -g npm'
   
 - name: include in path...
-  become: yes
   with_items:
     - etc/profile.d/node-n.sh
   template: >-
