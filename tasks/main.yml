@@ -1,7 +1,6 @@
 ---
 - name: downloading installer...
   become: yes
-  become_user: root
   get_url: >
     url={{node_n_url}}
     dest=/tmp/n-install.sh
@@ -9,7 +8,6 @@
 
 - name: install...
   become: yes
-  become_user: root
   environment:
     N_PREFIX : '{{node_n_prefix}}'
     PATH: '/bin:/usr/bin:/usr/local/bin'
@@ -19,7 +17,6 @@
 
 - name: install latest npm
   become: yes
-  become_user: root
   environment:
     N_PREFIX: '{{node_n_prefix}}'
     PATH: '/bin:/usr/bin:/usr/local/bin:{{node_n_prefix}}/bin'
@@ -27,7 +24,6 @@
   
 - name: include in path...
   become: yes
-  become_user: root
   with_items:
     - etc/profile.d/node-n.sh
   template: >-
